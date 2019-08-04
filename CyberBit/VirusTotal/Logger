@@ -1,0 +1,38 @@
+import logging
+import sys
+
+# ////////////////////////////////////////////////////////////////////////////////
+# Initializes logger instance
+# <INPUT - log_level>           Log file level: Error/Debug/etc...
+# <INPUT - format>              Log line format, Default: %(asctime)s - %(levelname)s - %(message)s
+# <INPUT - log_out_file_path>   Log out file path - if required
+# <INPUT - write_mode>          Log out file write mode - append/rewrite
+# <RETURN VALUE>                logger instance
+# ////////////////////////////////////////////////////////////////////////////////
+
+def initialize_logger(log_level = logging.DEBUG,
+                      log_format ='%(asctime)s - %(levelname)s - %(message)s',
+                      log_out_file_path = '',
+                      write_mode = 'w',
+                      logger_name = ''):
+    log_inst = logging.getLogger(logger_name)
+    log_inst.propagate = False
+    log_inst.setLevel(log_level)
+    # set stream logger
+    ch = logging.StreamHandler(sys.stdout)
+    ch.setLevel(log_level)
+    # create formatter and add it to the handlers
+    formatter = logging.Formatter(log_format)
+    ch.setFormatter(formatter)
+    # add the handlers to the logger
+    log_inst.addHandler(ch)
+    if log_out_file_path:
+        # Set text file logger
+        fh = logging.FileHandler(log_out_file_path, mode=write_mode)
+        fh.setLevel(log_level)
+        # create formatter and add it to the handlers
+        fh.setFormatter(formatter)
+        # add the handlers to the logger
+        log_inst.addHandler(fh)
+
+    return log_inst
