@@ -9,18 +9,13 @@ class abstractVirusTotalRequesterManager(ABC):
         pass
 
     def requestVirusTotal(self, ip):
-        # ip_url = r"https://www.virustotal.com//ui/urls/{}?relationships=last_serving_ip_address,network_location".format(ip)
-        # import requests
-        # req = requests.get(url=ip_url)
-        # data_json = req.json()
-        import json
-        # read file
-        with open(r"C:\Users\stavl\PycharmProjects\CyberBit\data.json", 'r') as myfile:
-            data = myfile.read()
-        # parse file
-        data_json = json.loads(data)
+        import requests
+        malicius_url = ip
+        json_url = r"https://www.virustotal.com/ui/search?relationships%5Bcomment%5D=author%2Citem&relationships%5Burl%5D=network_location%2Clast_serving_ip_address&limit=20&query=http%3A%2F%2F{}%2F".format(
+            malicius_url)
+        req = requests.get(url=json_url)
+        data_json = req.json()
         return data_json
-
 
 
 

@@ -1,9 +1,7 @@
 import sys
-#import Logger
+import os
 
-#global g_logger
 from VirusTotal.SimpleQueryManager import SimpleQueryManager
-
 
 class VirusTotalManager:
 
@@ -30,6 +28,7 @@ class VirusTotalManager:
 
 
 def main(args):
+
     vt_manager = VirusTotalManager("ip_list.txt")
     vt_manager.run()
 
